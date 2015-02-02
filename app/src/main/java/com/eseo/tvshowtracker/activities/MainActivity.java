@@ -1,21 +1,19 @@
 package com.eseo.tvshowtracker.activities;
 
-import android.app.FragmentTransaction;
+import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.managers.RESTService;
 import com.eseo.tvshowtracker.managers.TVShowManager;
-import com.eseo.tvshowtracker.model.TVShow;
+import com.eseo.tvshowtracker.model.ResultsPage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-
-import retrofit.client.Response;
 
 
 public class MainActivity extends ActionBarActivity implements ActionBar.TabListener{
@@ -36,15 +34,16 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
 
         //TODO: TEST WEB SERVICE (RETROFIT)
-       // testWS();
+        testWS();
 
         //TODO: TEST INJECTION (ROBOBINDING)
         //testRB
     }
 
     public void testWS(){
-        TVShow show = TVShowManager.getInstance().getService().getTVShow("Breaking Bad");
-        show.getName();
+        RESTService service = TVShowManager.getInstance().getService();
+        ResultsPage result = service.getTvSeries("Alias");
+      //  Log.e("PID", result.getResults().get(0).toString());
     }
 
     public void testRB(){

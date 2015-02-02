@@ -30,7 +30,7 @@ public class TVShowManager {
     RequestInterceptor requestInterceptor = new RequestInterceptor() {
         @Override
         public void intercept(RequestFacade request) {
-            request.addHeader("api_key", APIKEY);
+            request.addQueryParam("api_key", APIKEY);
         }
     };
 

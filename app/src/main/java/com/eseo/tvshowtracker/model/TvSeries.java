@@ -2,17 +2,21 @@ package com.eseo.tvshowtracker.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Created by Damien on 2/2/2015.
  */
-public class TVShow {
+public class TvSeries implements Serializable{
 
-    @SerializedName("id")
     private int id;
-    @SerializedName("original_name")
-    private String name;
+    private String original_name;
+
+    public TvSeries(int id, String name){
+        this.id=id;
+        this.original_name=name;
+    }
 
     public int getId() {
         return id;
@@ -23,10 +27,10 @@ public class TVShow {
     }
 
     public String getName() {
-        return name;
+        return original_name;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.original_name = name;
     }
 }
