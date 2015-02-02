@@ -49,7 +49,6 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
     public void testRB(){
         ArrayList<String> series = new ArrayList<String>(Arrays.asList("Breaking Bad", "Lost", "Arrow", "The 100", "Marco Polo", "Grimm", "Gotham", "House of Cards"));
-        Binders.inflateAndBindWithoutPreInitializingView(this, R.layout.activity_main,)
     }
 
 
