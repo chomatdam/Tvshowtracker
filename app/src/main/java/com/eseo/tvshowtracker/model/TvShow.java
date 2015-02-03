@@ -8,10 +8,13 @@ import java.util.List;
  */
 public class TvShow implements Serializable{
 
-    private int id;
+    private long id;
     private String original_name;
     private String poster_path ;
     private List<Season> seasons ;
+
+    public TvShow(){
+    }
 
     public TvShow(int id, String name, String poster_url){
         this.id=id;
@@ -19,11 +22,11 @@ public class TvShow implements Serializable{
         this.poster_path = poster_url ;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 

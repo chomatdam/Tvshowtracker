@@ -8,12 +8,29 @@ import java.util.List;
  */
 public class Season implements Serializable {
 
+    private long id;
+    private long id_tvshow;
     private int season_number;
     private int episode_count;
     private String air_date;
     private String poster_path ;
     private List<Episode> episodes ;
 
+    public long getId_tvshow() {
+        return id_tvshow;
+    }
+
+    public void setId_tvshow(long id_tvshow) {
+        this.id_tvshow = id_tvshow;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
     public int getSeason_number() {
         return season_number;
     }
