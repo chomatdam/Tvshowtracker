@@ -63,19 +63,18 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         TvShow show = new TvShow();
         show.setName("Alias");
         db.createTvShow(show);
-        Log.e("DB_RESULT_TVSHOW", db.getTvShow("Alias").getName());
+            Log.e("TEST 1: DB_CREA_TVSHOW", db.getTvShow("Alias").getName());
 
         Season season = new Season();
         season.setSeason_number(1);
         season.setEpisode_count(22);
         db.createSeason(db.getTvShow("Alias"), season);
-      //  Log.e("DB_RESULT_SEASON", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisode_count()));
+        Log.e("TEST 2: DB_ACCESS_SEASON", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisode_count()));
 
         Episode episode = new Episode();
         episode.setName("Le premier épisode");
-        //TODO: getSeasons() ne peut être retrouvé de la BDD, pas de lien tvshow -> saison  (saison -> tvshow only)
-       // db.createEpisode(db.getTvShow("Alias").getSeasons().get(0), episode);
-     //   Log.e("DB_RESULT_EPISODE", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisodes().get(0).getName()));
+        db.createEpisode(db.getTvShow("Alias").getSeasons().get(0), episode);
+        Log.e("TEST 3: DB_ACCESS_EPISODE", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisodes().get(0).getName()));
 
     }
 
