@@ -6,10 +6,10 @@ import java.util.List;
 /**
  * Created by Damien on 2/2/2015.
  */
-public class ResultsPage implements Serializable{
+public class SearchResultsPage implements Serializable{
 
     public Integer page;
-    public List<TvSeries> results;
+    public List<TvShow> results;
     public Integer total_pages;
     public Integer total_results;
 
@@ -21,11 +21,11 @@ public class ResultsPage implements Serializable{
         this.page = page;
     }
 
-    public List<TvSeries> getResults() {
+    public List<TvShow> getResults() {
         return results;
     }
 
-    public void setResults(List<TvSeries> results) {
+    public void setResults(List<TvShow> results) {
         this.results = results;
     }
 

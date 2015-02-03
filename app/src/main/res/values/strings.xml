@@ -2,8 +2,11 @@
 <resources>
 
     <string name="app_name">Mes séries</string>
-    <string name="action_leave">Quitter</string>
+    <string name="action_add">Ajouter</string>
+    <string name="action_search">Chercher</string>
     <string name="tab_toptvshows">Top séries</string>
     <string name="tab_myShows">Mes séries</string>
+    <string name="search_hint">Nom de la série</string>
+    <string name="result_activity">Résultats</string>
 
 </resources>

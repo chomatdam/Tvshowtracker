@@ -1,18 +1,16 @@
 package com.eseo.tvshowtracker.model;
 
 
-import java.util.Date;
-
 public class Episode {
 
     private String name;
-    private Date availableDate;
+    private String air_date;
 
     public String getName() {
         return name;
     }
 
-    public Date getAvailableDate() {
-        return availableDate;
+    public String getDate() {
+        return air_date;
     }
 }
