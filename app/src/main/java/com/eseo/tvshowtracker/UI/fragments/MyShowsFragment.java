@@ -161,4 +161,8 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
 
 
     }
+
+    public void update() {
+        mAdapter.notifyDataSetChanged();
+    }
 }

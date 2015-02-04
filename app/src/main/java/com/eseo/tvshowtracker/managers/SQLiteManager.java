@@ -84,7 +84,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         onCreate(db);
     }
     /*
-    DB REQUESTS (CREATE - DELETE - GET)  TODO: ->DAO
+    DB REQUESTS  TODO(reorganization): DAO structure OR Framework (ORMDroid/DroidPersistence/Cupboard)
      */
 
     public void clear(){

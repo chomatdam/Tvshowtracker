@@ -13,16 +13,19 @@ import android.view.MenuItem;
 import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.UI.adapter.MyFragmentPageAdapter;
 import com.eseo.tvshowtracker.UI.fragments.MyShowsFragment;
+import com.eseo.tvshowtracker.UI.fragments.NotificationListener;
 import com.eseo.tvshowtracker.UI.fragments.PopularShowsFragment;
+import com.eseo.tvshowtracker.managers.SQLiteManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements ActionBar.TabListener {
+public class MainActivity extends ActionBarActivity implements NotificationListener, ActionBar.TabListener {
 
     private ViewPager mViewPager ;
     private MyFragmentPageAdapter mAdapter ;
+    private MyShowsFragment myshowsFragment;
 
     private List<Fragment> fragments = new ArrayList<Fragment>();
 
@@ -32,16 +35,15 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
 
         setContentView(R.layout.activity_main);
 
-
-        fragments.add(new MyShowsFragment());
+        myshowsFragment = new MyShowsFragment();
+        fragments.add(myshowsFragment);
         fragments.add(new PopularShowsFragment());
 
         mAdapter = new MyFragmentPageAdapter(getSupportFragmentManager(), fragments);
         mViewPager = (ViewPager) findViewById(R.id.pager);
         mViewPager.setAdapter(mAdapter);
 
-
-    /* Tabs */
+            /* Tabs */
         final ActionBar actionBar = getSupportActionBar();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
@@ -49,9 +51,32 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         actionBar.addTab(actionBar.newTab().setText(R.string.tab_toptvshows).setTabListener(this));
 
 
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            }
+
+            @Override
+            public void onPageSelected(int arg0) {
+                actionBar.setSelectedNavigationItem(arg0);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+            }
+        });
 
 
+        SQLiteManager db = new SQLiteManager(this);
+        //db.clear();
     }
+
+    @Override
+    public void updateView() {
+        myshowsFragment.update();
+        mAdapter.notifyDataSetChanged();
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
