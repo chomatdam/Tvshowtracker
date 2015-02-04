@@ -1,6 +1,7 @@
 package com.eseo.tvshowtracker.UI.fragments;
 
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
@@ -23,8 +24,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.eseo.tvshowtracker.R;
+import com.eseo.tvshowtracker.UI.activities.DetailedTvShowActivity;
+import com.eseo.tvshowtracker.UI.activities.SearchResultsActivity;
 import com.eseo.tvshowtracker.managers.SQLiteManager;
 import com.eseo.tvshowtracker.managers.TVShowManager;
+import com.eseo.tvshowtracker.model.TvShow;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -45,13 +49,13 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
 
         mSqLiteManager = new SQLiteManager(getActivity());
 
-        String[] from =  new String[]{"poster_path","original_name"};
-        int[] to = new int[]{R.id.tvshow_poster_image_view,R.id.tvshow_name_text_view};
+        String[] from =  new String[]{"poster_path","original_name","next_episode"};
+        int[] to = new int[]{R.id.tvshow_poster_image_view,R.id.tvshow_name_text_view,R.id.tv_show_next_episode};
 
         getLoaderManager().initLoader(TVSHOW_LIST_LOADER, null, this);
 
         mAdapter = new SimpleCursorAdapter(
-                getActivity().getApplicationContext(), R.layout.tv_show_row,
+                getActivity().getApplicationContext(), R.layout.my_tv_show_row,
                 null, from, to, Adapter.IGNORE_ITEM_VIEW_TYPE);
 
 
@@ -158,8 +162,12 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
-
-
+        Intent intent = new Intent(getActivity(), DetailedTvShowActivity.class);
+        Bundle bundle = new Bundle();
+        //TODO: get tvshowID here !
+        bundle.putSerializable("tvshow",(TvShow)mAdapter.getItem(position));
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     public void update() {

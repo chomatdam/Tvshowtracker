@@ -10,5 +10,10 @@
     <string name="result_activity">Résultats</string>
     <string name="context_option_update">Actualiser</string>
     <string name="context_option_delete">Supprimer</string>
+    <string name="title_activity_detailed_tv_show">DetailedTvShowActivity</string>
+    <string name="tab_overview">Général</string>
+    <string name="tab_seasons">Saisons</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
 
 </resources>

@@ -91,7 +91,7 @@ public class PopularShowsFragment extends ListFragment{
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         TvShow tvShow = (TvShow) l.getItemAtPosition(position);
-        new GetTvShowThread(tvShow.getId(),mResultHandler).start();
+        new GetTvShowThread(getActivity(),tvShow.getId(),mResultHandler).start();
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -101,8 +101,6 @@ public class PopularShowsFragment extends ListFragment{
         public void handleMessage(Message msg) {
             switch(msg.what){
                 case GetTvShowThread.TV_SHOW_ANSWER:
-                    TvShow selectedTvShow = (TvShow)msg.obj ;
-                    mSqLiteManager.createTvShow(selectedTvShow);
                     mProgressBar.setVisibility(View.GONE);
                     listener.updateView();
                     break;

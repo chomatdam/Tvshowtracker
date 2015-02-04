@@ -68,7 +68,7 @@ public class MainActivity extends ActionBarActivity implements NotificationListe
 
 
         SQLiteManager db = new SQLiteManager(this);
-        //db.clear();
+        db.clear();
     }
 
     @Override

@@ -12,6 +12,7 @@ public class TvShow implements Serializable{
     private String original_name;
     private String poster_path ;
     private List<Season> seasons ;
+    private String nextEpisode;
 
     public TvShow(){
     }
@@ -48,5 +49,13 @@ public class TvShow implements Serializable{
 
     public void setSeasons(List<Season> seasons) {
         this.seasons = seasons;
+    }
+
+    public String getNextEpisode() {
+        return nextEpisode;
+    }
+
+    public void setNextEpisode(String nextEpisode) {
+        this.nextEpisode = nextEpisode;
     }
 }

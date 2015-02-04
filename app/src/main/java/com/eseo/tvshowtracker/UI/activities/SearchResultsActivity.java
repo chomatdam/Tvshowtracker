@@ -119,7 +119,7 @@ public class SearchResultsActivity extends ActionBarActivity implements SearchVi
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         TvShow tvShow = (TvShow) parent.getItemAtPosition(position);
-        new GetTvShowThread(tvShow.getId(),mResultHandler).start();
+        new GetTvShowThread(this,tvShow.getId(),mResultHandler).start();
         mProgressBar.setVisibility(View.VISIBLE);
     }
 
@@ -147,8 +147,6 @@ public class SearchResultsActivity extends ActionBarActivity implements SearchVi
         public void handleMessage(Message msg) {
             switch(msg.what){
                 case GetTvShowThread.TV_SHOW_ANSWER:
-                    TvShow selectedTvShow = (TvShow)msg.obj ;
-                    mSqLiteManager.createTvShow(selectedTvShow);
                     finish();
                     break;
                 default:
