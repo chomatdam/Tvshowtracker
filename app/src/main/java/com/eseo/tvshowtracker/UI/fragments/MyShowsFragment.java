@@ -1,8 +1,10 @@
 package com.eseo.tvshowtracker.UI.fragments;
 
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.support.v4.app.LoaderManager;
@@ -41,6 +43,10 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
 
 
     private SimpleCursorAdapter mAdapter ;
+    private TvShow selectedTvShow ;
+
+    private ProgressDialog mProgressDialog ;
+
     SQLiteManager mSqLiteManager ;
 
     @Override
@@ -99,6 +105,8 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
             RelativeLayout rowLayout = (RelativeLayout) mAdapter.getView(info.position, info.targetView, (ViewGroup) v);
             TextView name = (TextView) rowLayout.findViewById(R.id.tvshow_name_text_view);
 
+            selectedTvShow = mSqLiteManager.getTvShow((String)name.getText());
+
             menu.setHeaderTitle((String)name.getText());
             String[] menuItems = getResources().getStringArray(R.array.options);
             for (int i = 0; i<menuItems.length; i++) {
@@ -118,11 +126,11 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
         switch(menuItemIndex){
             //UPDATE
             case 0 :
-                Toast.makeText(getActivity(),"UPDATE",Toast.LENGTH_SHORT).show();
+                new DataBaseAsyncTask().execute(SQLiteManager.DELETE_CODE);
                 break;
             //DELETE
             case 1 :
-                Toast.makeText(getActivity(),"DELETE",Toast.LENGTH_SHORT).show();
+                new DataBaseAsyncTask().execute(SQLiteManager.DELETE_CODE);
                 break;
         }
 
@@ -133,8 +141,8 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
 
     @Override
     public void onResume() {
-        super.onResume();
-        getLoaderManager().restartLoader(TVSHOW_LIST_LOADER,null,this);
+       super.onResume();
+       update();
 
     }
 
@@ -171,6 +179,44 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
     }
 
     public void update() {
-        mAdapter.notifyDataSetChanged();
+        getLoaderManager().restartLoader(TVSHOW_LIST_LOADER,null,this);
     }
+
+    private class  DataBaseAsyncTask extends AsyncTask<Integer,Void,Void>{
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mProgressDialog = new ProgressDialog(MyShowsFragment.this.getActivity());
+            mProgressDialog.setMessage("Traitement en cours ... ");
+            mProgressDialog.show();
+        }
+
+        @Override
+        protected Void doInBackground(Integer... params) {
+
+            int ddbAction = params[0] ;
+            long id_tvshow = selectedTvShow.getId() ;
+
+            switch(ddbAction){
+                case SQLiteManager.UPDATE_CODE:
+                    break ;
+
+                case SQLiteManager.DELETE_CODE:
+                    mSqLiteManager.deleteTvShow(id_tvshow);
+                    break ;
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            mProgressDialog.dismiss();
+            update();
+        }
+    }
+
+
 }

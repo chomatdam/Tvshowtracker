@@ -65,10 +65,6 @@ public class MainActivity extends ActionBarActivity implements NotificationListe
             public void onPageScrollStateChanged(int state) {
             }
         });
-
-
-        SQLiteManager db = new SQLiteManager(this);
-        db.clear();
     }
 
     @Override

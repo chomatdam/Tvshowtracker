@@ -18,6 +18,10 @@ import java.util.ArrayList;
  */
 public class SQLiteManager extends SQLiteOpenHelper {
 
+
+    public static final int DELETE_CODE = 1 ;
+    public static final int UPDATE_CODE = 2 ;
+
     /* Database */
     private static final String DATABASE_NAME = "app.db";
     private static final int DATABASE_VERSION = 1;
@@ -189,6 +193,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     public TvShow getTvShow(String name) {
         SQLiteDatabase db = this.getReadableDatabase();
+
+        name = name.replace("'","''");
+
         String selectQuery = "SELECT  * FROM " + TABLE_TVSHOW + " WHERE "
                 + COL_NAME_TVSHOW + " = '" + name +"';";
 
