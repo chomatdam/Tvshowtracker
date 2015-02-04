@@ -12,7 +12,6 @@ import com.eseo.tvshowtracker.model.Season;
 import com.eseo.tvshowtracker.model.TvShow;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Damien on 2/3/2015.
@@ -24,28 +23,28 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     /* All tables */
-    private static final String COL_PK_ID = "ID";
+    private static final String COL_PK_ID = "_id";
 
     /* Table TVSHOW */
     private static final String TABLE_TVSHOW = "TVSHOW";
 
-    private static final String COL_NAME_TVSHOW = "ORIGINAL_NAME";
-    private static final String COL_POSTER_TVSHOW = "POSTER_PATH";
+    private static final String COL_NAME_TVSHOW = "original_name";
+    private static final String COL_POSTER_TVSHOW = "poster_path";
 
     /* Table SEASON */
     private static final String TABLE_SEASON = "SEASON";
 
-    private static final String COL_SEASON_NUMBER = "SEASON_NUMBER";
-    private static final String COL_EPISODE_COUNT = "EPISODE_COUNT";
-    private static final String COL_FK_ID_TVSHOW = "ID_TVSHOW";
+    private static final String COL_SEASON_NUMBER = "season_number";
+    private static final String COL_EPISODE_COUNT = "episode_count";
+    private static final String COL_FK_ID_TVSHOW = "id_tvshow";
 
     /* Table EPISODE */
     private static final String TABLE_EPISODE = "EPISODE";
 
-    private static final String COL_NAME_EPISODE = "NAME";
-    private static final String COL_AIR_DATE = "AIR_DATE";
-    private static final String COL_EPISODE_SEEN = "EPISODE_SEEN";
-    private static final String COL_FK_ID_SEASON = "ID_SEASON";
+    private static final String COL_NAME_EPISODE = "name";
+    private static final String COL_AIR_DATE = "air_date";
+    private static final String COL_EPISODE_SEEN = "episode_seen";
+    private static final String COL_FK_ID_SEASON = "id_season";
 
     /* Table Create Statements */
     //NOTE: INTEGER PRIMARY KEY will autoincrement
@@ -110,39 +109,44 @@ public class SQLiteManager extends SQLiteOpenHelper {
         long tvshow_id = db.insert(TABLE_TVSHOW, null, values);
         show.setId(tvshow_id);
 
+        for(Season season : show.getSeasons()){
+            createSeason(show.getId(),season);
+        }
+
         return tvshow_id;
     }
 
-    public long createSeason(TvShow show, Season season) {
+    public long createSeason(long tvshow_id, Season season) {
         SQLiteDatabase db = this.getWritableDatabase();
-        long id_tvshow = show.getId();
 
         ContentValues values = new ContentValues();
         values.put(COL_SEASON_NUMBER,season.getSeason_number());
         values.put(COL_EPISODE_COUNT, season.getEpisode_count());
-        values.put(COL_FK_ID_TVSHOW, id_tvshow);
+        values.put(COL_FK_ID_TVSHOW, tvshow_id);
 
-        show.getSeasons().add(season);
-        season.setId_tvshow(id_tvshow);
+        season.setId_tvshow(tvshow_id);
 
         // insert row
         long season_id = db.insert(TABLE_SEASON, null, values);
         season.setId(season_id);
 
+        for(Episode episode : season.getEpisodes()){
+           createEpisode(season.getId(),episode);
+        }
+
         return season_id;
     }
 
-    public long createEpisode(Season season, Episode episode){
+    public long createEpisode(long season_id, Episode episode){
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(COL_NAME_EPISODE,episode.getName());
         values.put(COL_EPISODE_SEEN, episode.isSeen());
         values.put(COL_AIR_DATE, episode.getAir_date());
-        values.put(COL_FK_ID_SEASON, season.getId());
+        values.put(COL_FK_ID_SEASON, season_id);
 
-        season.getEpisodes().add(episode);
-        episode.setId_season(season.getId());
+        episode.setId_season(season_id);
 
         // insert row
         long episode_id = db.insert(TABLE_EPISODE, null, values);
@@ -159,28 +163,26 @@ public class SQLiteManager extends SQLiteOpenHelper {
         for(Season season : seasons){
             ArrayList<Episode> episodes = getAllEpisodes(season.getId());
             for(Episode episode : episodes){
-                db.delete(TABLE_EPISODE,COL_PK_ID,
-                        new String[] { String.valueOf(episode.getId()) });
+               deleteEpisode(episode.getId());
             }
-            db.delete(TABLE_SEASON,COL_PK_ID,
-                    new String[] { String.valueOf(season.getId()) });
+           deleteSeason(season.getId());
         }
         db.delete(TABLE_TVSHOW, COL_PK_ID + " = ?",
                 new String[] { String.valueOf(tvshow_id) });
     }
 
-    public void deleteSeason(long tvshow_id) {
+    public void deleteSeason(long season_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_SEASON, COL_PK_ID + " = ?",
-                new String[] { String.valueOf(tvshow_id) });
+                new String[] { String.valueOf(season_id) });
     }
 
-    public void deleteEpisode(long season_id) {
+    public void deleteEpisode(long episode_id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.delete(TABLE_EPISODE, COL_PK_ID + " = ?",
-                new String[] { String.valueOf(season_id) });
+                new String[] { String.valueOf(episode_id) });
     }
 
     public TvShow getTvShow(String name) {
@@ -274,5 +276,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
         }
         return episodes;
     }
+
+    public Cursor queryAllDataShow(){
+        SQLiteDatabase db = this.getReadableDatabase();
+        String selectQuery = "SELECT  * FROM " + TABLE_TVSHOW ;
+        return db.rawQuery(selectQuery, null);
+
+    }
+
 
 }

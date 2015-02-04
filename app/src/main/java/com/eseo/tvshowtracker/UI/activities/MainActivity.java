@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -15,10 +14,6 @@ import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.UI.adapter.MyFragmentPageAdapter;
 import com.eseo.tvshowtracker.UI.fragments.MyShowsFragment;
 import com.eseo.tvshowtracker.UI.fragments.PopularShowsFragment;
-import com.eseo.tvshowtracker.managers.SQLiteManager;
-import com.eseo.tvshowtracker.model.Episode;
-import com.eseo.tvshowtracker.model.Season;
-import com.eseo.tvshowtracker.model.TvShow;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,27 +49,7 @@ public class MainActivity extends ActionBarActivity implements ActionBar.TabList
         actionBar.addTab(actionBar.newTab().setText(R.string.tab_toptvshows).setTabListener(this));
 
 
-        /*
-                TEST ZONE
-         */
-        SQLiteManager db = new SQLiteManager(this);
-        db.clear();
 
-        TvShow show = new TvShow();
-        show.setName("Alias");
-        db.createTvShow(show);
-            Log.e("TEST 1: DB_CREA_TVSHOW", db.getTvShow("Alias").getName());
-
-        Season season = new Season();
-        season.setSeason_number(1);
-        season.setEpisode_count(22);
-        db.createSeason(db.getTvShow("Alias"), season);
-        Log.e("TEST 2: DB_ACCESS_SEASON", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisode_count()));
-
-        Episode episode = new Episode();
-        episode.setName("Le premier épisode");
-        db.createEpisode(db.getTvShow("Alias").getSeasons().get(0), episode);
-        Log.e("TEST 3: DB_ACCESS_EPISODE", String.valueOf(db.getTvShow("Alias").getSeasons().get(0).getEpisodes().get(0).getName()));
 
     }
 

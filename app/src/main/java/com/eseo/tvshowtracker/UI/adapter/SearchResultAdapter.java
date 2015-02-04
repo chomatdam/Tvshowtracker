@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eseo.tvshowtracker.R;
+import com.eseo.tvshowtracker.managers.TVShowManager;
 import com.eseo.tvshowtracker.model.TvShow;
 import com.squareup.picasso.Picasso;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 public class SearchResultAdapter extends ArrayAdapter<TvShow> {
 
     private final Context context;
-    private static final String IMAGE_URL = "http://image.tmdb.org/t/p/w500/" ;
 
     private static class ViewHolder {
         ImageView poster;
@@ -41,10 +41,10 @@ public class SearchResultAdapter extends ArrayAdapter<TvShow> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.search_result_row, parent, false);
+            convertView = inflater.inflate(R.layout.tv_show_row, parent, false);
 
-            viewHolder.poster = (ImageView) convertView.findViewById(R.id.search_result_poster_image_view);
-            viewHolder.name = (TextView) convertView.findViewById(R.id.search_result_name_text_view);
+            viewHolder.poster = (ImageView) convertView.findViewById(R.id.tvshow_poster_image_view);
+            viewHolder.name = (TextView) convertView.findViewById(R.id.tvshow_name_text_view);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
@@ -53,7 +53,7 @@ public class SearchResultAdapter extends ArrayAdapter<TvShow> {
 
 
         Picasso.with(context)
-                .load(IMAGE_URL+tvShow.getPoster_url())
+                .load(TVShowManager.IMAGE_URL+tvShow.getPoster_url())
                 .error(R.drawable.tv_icon)
                 .placeholder(R.drawable.tv_icon)
                 .into(viewHolder.poster);

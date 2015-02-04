@@ -3,12 +3,13 @@ package com.eseo.tvshowtracker.managers;
 
 import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
-import retrofit.client.Response;
 
 public class TVShowManager {
 
     private static TVShowManager instance = null;
     private RESTService service = null;
+
+    public static final String IMAGE_URL = "http://image.tmdb.org/t/p/w500/" ;
     private static final String URL = "http://api.themoviedb.org/3";
     private static final String APIKEY = "85942e21532423f95b0630459fa4101f";
 

@@ -8,5 +8,7 @@
     <string name="tab_myShows">Mes séries</string>
     <string name="search_hint">Nom de la série</string>
     <string name="result_activity">Résultats</string>
+    <string name="context_option_update">Actualiser</string>
+    <string name="context_option_delete">Supprimer</string>
 
 </resources>

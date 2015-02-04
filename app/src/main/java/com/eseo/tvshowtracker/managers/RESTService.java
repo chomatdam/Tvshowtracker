@@ -1,6 +1,7 @@
 package com.eseo.tvshowtracker.managers;
 
 import com.eseo.tvshowtracker.model.SearchResultsPage;
+import com.eseo.tvshowtracker.model.Season;
 import com.eseo.tvshowtracker.model.TvShow;
 
 import retrofit.Callback;
@@ -17,7 +18,10 @@ public interface RESTService {
     public void getPopularTvShows(Callback<SearchResultsPage> callback);
 
     @GET("/tv/{id}")
-    public void getDetailledTVShow(@Path("id") String id, Callback<TvShow> callback);
+    public TvShow getDataTVShow(@Path("id") long id);
+
+    @GET("/tv/{id}/season/{season_number}")
+    public Season getDataSeason(@Path("id") long id,@Path("season_number") int season_number);
 
 
 }

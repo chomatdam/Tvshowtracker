@@ -1,7 +1,9 @@
 package com.eseo.tvshowtracker.model;
 
 
-public class Episode {
+import java.io.Serializable;
+
+public class Episode implements Serializable {
 
     private long id;
     private long id_season;
