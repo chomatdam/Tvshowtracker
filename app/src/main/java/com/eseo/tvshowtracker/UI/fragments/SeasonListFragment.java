@@ -28,18 +28,18 @@ import retrofit.client.Response;
 /**
  * Created by Damien on 05/02/2015.
  */
-public class EpisodeListFragment extends ListFragment{
+public class SeasonListFragment extends ListFragment{
 
     private TvShow tvshow;
     private ListSeasonAdapter mAdapter ;
 
-    public static EpisodeListFragment newInstance(int sectionNumber, TvShow tvshow) {
-        EpisodeListFragment fragment = new EpisodeListFragment();
+    public static SeasonListFragment newInstance(int sectionNumber, TvShow tvshow) {
+        SeasonListFragment fragment = new SeasonListFragment();
         fragment.tvshow = tvshow;
         return fragment;
     }
 
-    public EpisodeListFragment() {
+    public SeasonListFragment() {
     }
 
     @Override

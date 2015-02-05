@@ -40,6 +40,7 @@ public class GetTvShowThread extends Thread {
             season = service.getDataSeason(mTvShowId,season.getSeason_number());
             tvShow.getSeasons().set(i++,season);
         }
+        tvShow.setId_moviedb(tvShow.getId());
         tvShow.setNextEpisode(getLastestAirDate(tvShow));
         mSqLiteManager.createTvShow(tvShow);
 

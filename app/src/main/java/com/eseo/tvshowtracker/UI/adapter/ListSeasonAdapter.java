@@ -1,6 +1,7 @@
 package com.eseo.tvshowtracker.UI.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,11 +52,10 @@ public class ListSeasonAdapter extends ArrayAdapter<Season> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.name.setText("Episode "+getItem(position).getSeason_number());
-
+        viewHolder.name.setText("Season "+getItem(position).getSeason_number());
 
         Picasso.with(context)
-                .load(TVShowManager.IMAGE_URL+tvshow.getPoster_url()) //TODO: URL cover path of this season to find...
+                .load(TVShowManager.IMAGE_URL+getItem(position).getPoster_path())
                 .error(R.drawable.tv_icon)
                 .placeholder(R.drawable.tv_icon)
                 .into(viewHolder.poster);

@@ -11,7 +11,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.method.ScrollingMovementMethod;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,7 +21,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eseo.tvshowtracker.R;
-import com.eseo.tvshowtracker.UI.fragments.EpisodeListFragment;
+import com.eseo.tvshowtracker.UI.fragments.SeasonListFragment;
 import com.eseo.tvshowtracker.managers.TVShowManager;
 import com.eseo.tvshowtracker.model.TvShow;
 import com.squareup.picasso.Picasso;
@@ -90,6 +90,7 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
                 currentTvShow.getSeasons().remove(0);
             }
         }
+        Log.e("TVSHOW", "id movie db: " + currentTvShow.getId_moviedb() + " et path first season: " + currentTvShow.getSeasons().get(0).getPoster_path());
     }
 
 
@@ -144,7 +145,7 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
             if(position==0)
                 return PlaceholderFragment.newInstance(position);
             else
-                return EpisodeListFragment.newInstance(position,currentTvShow);
+                return SeasonListFragment.newInstance(position, currentTvShow);
         }
 
         @Override

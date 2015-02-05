@@ -9,6 +9,7 @@ import java.util.List;
 public class TvShow implements Serializable{
 
     private long id;
+    private long id_moviedb;
     private String original_name;
     private String poster_path ;
     private List<Season> seasons ;
@@ -30,6 +31,14 @@ public class TvShow implements Serializable{
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public long getId_moviedb() {
+        return id_moviedb;
+    }
+
+    public void setId_moviedb(long id_moviedb) {
+        this.id_moviedb = id_moviedb;
     }
 
     public String getName() {

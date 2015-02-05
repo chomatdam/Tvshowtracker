@@ -28,12 +28,14 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
     /* All tables */
     private static final String COL_PK_ID = "_id";
+    private static final String COL_POSTER = "poster_path";
+    private static final String COL_AIR_DATE = "air_date";
 
     /* Table TVSHOW */
     private static final String TABLE_TVSHOW = "TVSHOW";
 
     private static final String COL_NAME_TVSHOW = "original_name";
-    private static final String COL_POSTER_TVSHOW = "poster_path";
+    private static final String COL_ID_MOVIEDB = "id_moviedb";
     private static final String COL_NEXT_EPISODE_TVSHOW = "next_episode";
     private static final String COL_OVERVIEW_TVSHOW = "overview";
 
@@ -48,7 +50,6 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String TABLE_EPISODE = "EPISODE";
 
     private static final String COL_NAME_EPISODE = "name";
-    private static final String COL_AIR_DATE = "air_date";
     private static final String COL_EPISODE_SEEN = "episode_seen";
     private static final String COL_FK_ID_SEASON = "id_season";
 
@@ -56,12 +57,13 @@ public class SQLiteManager extends SQLiteOpenHelper {
     //NOTE: INTEGER PRIMARY KEY will autoincrement
     private static final String CREATE_TABLE_TVSHOW = "CREATE TABLE "
             + TABLE_TVSHOW + "(" + COL_PK_ID + " INTEGER PRIMARY KEY," + COL_NAME_TVSHOW
-            + " TEXT," + COL_POSTER_TVSHOW + " TEXT,"+ COL_OVERVIEW_TVSHOW + " TEXT,"
-            + COL_NEXT_EPISODE_TVSHOW +" TEXT)";
+            + " TEXT," + COL_POSTER + " TEXT,"+ COL_OVERVIEW_TVSHOW + " TEXT,"
+            +COL_ID_MOVIEDB+" INTEGER,"+ COL_NEXT_EPISODE_TVSHOW +" TEXT)";
 
     private static final String CREATE_TABLE_SEASON = "CREATE TABLE "
             + TABLE_SEASON + "(" + COL_PK_ID + " INTEGER PRIMARY KEY," + COL_SEASON_NUMBER
-            + " INTEGER," + COL_EPISODE_COUNT + " INTEGER," + COL_FK_ID_TVSHOW + " INTEGER)";
+            + " INTEGER," + COL_EPISODE_COUNT + " INTEGER,"+COL_AIR_DATE+" TEXT,"
+            +COL_POSTER+" TEXT,"+ COL_FK_ID_TVSHOW + " INTEGER)";
 
     private static final String CREATE_TABLE_EPISODE = "CREATE TABLE "
             + TABLE_EPISODE + "(" + COL_PK_ID + " INTEGER PRIMARY KEY,"
@@ -110,9 +112,10 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(COL_NAME_TVSHOW, show.getName());
-        values.put(COL_POSTER_TVSHOW, show.getPoster_url());
+        values.put(COL_POSTER, show.getPoster_url());
         values.put(COL_NEXT_EPISODE_TVSHOW, show.getNextEpisode());
         values.put(COL_OVERVIEW_TVSHOW, show.getOverview());
+        values.put(COL_ID_MOVIEDB, show.getId_moviedb());
 
         // insert row
         long tvshow_id = db.insert(TABLE_TVSHOW, null, values);
@@ -131,6 +134,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(COL_SEASON_NUMBER,season.getSeason_number());
         values.put(COL_EPISODE_COUNT, season.getEpisode_count());
+        values.put(COL_AIR_DATE, season.getAir_date());
+        values.put(COL_POSTER, season.getPoster_path());
         values.put(COL_FK_ID_TVSHOW, tvshow_id);
 
         season.setId_tvshow(tvshow_id);
@@ -230,8 +235,9 @@ public class SQLiteManager extends SQLiteOpenHelper {
 
         TvShow show = new TvShow();
         show.setId(c.getInt(c.getColumnIndex(COL_PK_ID)));
+        show.setId_moviedb(c.getInt(c.getColumnIndex(COL_ID_MOVIEDB)));
         show.setName((c.getString(c.getColumnIndex(COL_NAME_TVSHOW))));
-        show.setPoster_url(c.getString(c.getColumnIndex(COL_POSTER_TVSHOW)));
+        show.setPoster_url(c.getString(c.getColumnIndex(COL_POSTER)));
         show.setNextEpisode(c.getString(c.getColumnIndex(COL_NEXT_EPISODE_TVSHOW)));
         show.setOverview(c.getString(c.getColumnIndex(COL_OVERVIEW_TVSHOW)));
         show.setSeasons(getAllSeasons(c.getInt(c.getColumnIndex(COL_PK_ID))));
@@ -258,8 +264,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
                 season.setId_tvshow(c.getLong(c.getColumnIndex(COL_FK_ID_TVSHOW)));
                 season.setSeason_number(c.getInt(c.getColumnIndex(COL_SEASON_NUMBER)));
                 season.setEpisode_count(c.getInt(c.getColumnIndex(COL_EPISODE_COUNT)));
-                //season.setAir_date();
-                //season.setPoster_path();
+                season.setAir_date(c.getString(c.getColumnIndex(COL_AIR_DATE)));
+                season.setPoster_path(c.getString(c.getColumnIndex(COL_POSTER)));
                 season.setEpisodes(getAllEpisodes(c.getInt(c.getColumnIndex(COL_PK_ID))));
                 seasons.add(season);
             } while (c.moveToNext());
