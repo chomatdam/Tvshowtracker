@@ -170,10 +170,14 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         super.onListItemClick(l, v, position, id);
+
         Intent intent = new Intent(getActivity(), DetailedTvShowActivity.class);
         Bundle bundle = new Bundle();
-        //TODO: get tvshowID here !
-        bundle.putSerializable("tvshow",(TvShow)mAdapter.getItem(position));
+
+        TextView name = (TextView) v.findViewById(R.id.tvshow_name_text_view);
+        selectedTvShow = mSqLiteManager.getTvShow((String)name.getText());
+
+        bundle.putSerializable("tvshow",selectedTvShow);
         intent.putExtras(bundle);
         startActivity(intent);
     }
@@ -188,7 +192,7 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
         protected void onPreExecute() {
             super.onPreExecute();
             mProgressDialog = new ProgressDialog(MyShowsFragment.this.getActivity());
-            mProgressDialog.setMessage("Traitement en cours ... ");
+            mProgressDialog.setMessage("TV show being removed ... ");
             mProgressDialog.show();
         }
 

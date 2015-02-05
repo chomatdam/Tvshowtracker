@@ -1,19 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Mes séries</string>
-    <string name="action_add">Ajouter</string>
-    <string name="action_search">Chercher</string>
-    <string name="tab_toptvshows">Top séries</string>
-    <string name="tab_myShows">Mes séries</string>
-    <string name="search_hint">Nom de la série</string>
-    <string name="result_activity">Résultats</string>
-    <string name="context_option_update">Actualiser</string>
-    <string name="context_option_delete">Supprimer</string>
-    <string name="title_activity_detailed_tv_show">DetailedTvShowActivity</string>
-    <string name="tab_overview">Général</string>
-    <string name="tab_seasons">Saisons</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
+    <string name="app_name">TV shows tracker</string>
+    <string name="action_add">Add</string>
+    <string name="action_search">Search</string>
+    <string name="tab_toptvshows">Top TV Shows</string>
+    <string name="tab_myShows">My TV Shows</string>
+    <string name="search_hint">Name of the TV Show</string>
+    <string name="result_activity">Results</string>
+    <string name="context_option_update">Refresh</string>
+    <string name="context_option_delete">Remove</string>
+    <string name="title_activity_detailed_tv_show">Details</string>
+    <string name="tab_overview">Overview</string>
+    <string name="tab_seasons">Seasons</string>
 
 </resources>

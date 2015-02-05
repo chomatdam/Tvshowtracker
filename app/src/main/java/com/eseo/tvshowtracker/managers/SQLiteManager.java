@@ -35,6 +35,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
     private static final String COL_NAME_TVSHOW = "original_name";
     private static final String COL_POSTER_TVSHOW = "poster_path";
     private static final String COL_NEXT_EPISODE_TVSHOW = "next_episode";
+    private static final String COL_OVERVIEW_TVSHOW = "overview";
 
     /* Table SEASON */
     private static final String TABLE_SEASON = "SEASON";
@@ -55,7 +56,8 @@ public class SQLiteManager extends SQLiteOpenHelper {
     //NOTE: INTEGER PRIMARY KEY will autoincrement
     private static final String CREATE_TABLE_TVSHOW = "CREATE TABLE "
             + TABLE_TVSHOW + "(" + COL_PK_ID + " INTEGER PRIMARY KEY," + COL_NAME_TVSHOW
-            + " TEXT," + COL_POSTER_TVSHOW + " TEXT,"+ COL_NEXT_EPISODE_TVSHOW +" TEXT)";
+            + " TEXT," + COL_POSTER_TVSHOW + " TEXT,"+ COL_OVERVIEW_TVSHOW + " TEXT,"
+            + COL_NEXT_EPISODE_TVSHOW +" TEXT)";
 
     private static final String CREATE_TABLE_SEASON = "CREATE TABLE "
             + TABLE_SEASON + "(" + COL_PK_ID + " INTEGER PRIMARY KEY," + COL_SEASON_NUMBER
@@ -110,6 +112,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         values.put(COL_NAME_TVSHOW, show.getName());
         values.put(COL_POSTER_TVSHOW, show.getPoster_url());
         values.put(COL_NEXT_EPISODE_TVSHOW, show.getNextEpisode());
+        values.put(COL_OVERVIEW_TVSHOW, show.getOverview());
 
         // insert row
         long tvshow_id = db.insert(TABLE_TVSHOW, null, values);
@@ -230,6 +233,7 @@ public class SQLiteManager extends SQLiteOpenHelper {
         show.setName((c.getString(c.getColumnIndex(COL_NAME_TVSHOW))));
         show.setPoster_url(c.getString(c.getColumnIndex(COL_POSTER_TVSHOW)));
         show.setNextEpisode(c.getString(c.getColumnIndex(COL_NEXT_EPISODE_TVSHOW)));
+        show.setOverview(c.getString(c.getColumnIndex(COL_OVERVIEW_TVSHOW)));
         show.setSeasons(getAllSeasons(c.getInt(c.getColumnIndex(COL_PK_ID))));
 
 

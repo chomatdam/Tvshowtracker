@@ -10,16 +10,21 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.method.ScrollingMovementMethod;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.eseo.tvshowtracker.R;
+import com.eseo.tvshowtracker.UI.fragments.EpisodeListFragment;
+import com.eseo.tvshowtracker.managers.TVShowManager;
 import com.eseo.tvshowtracker.model.TvShow;
+import com.squareup.picasso.Picasso;
 
 public class DetailedTvShowActivity extends ActionBarActivity implements ActionBar.TabListener {
 
@@ -38,7 +43,7 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
      */
     ViewPager mViewPager;
 
-    TvShow currentTvShow;
+    static TvShow currentTvShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,11 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
         }
         Bundle b = getIntent().getExtras();
         currentTvShow = (TvShow)b.getSerializable("tvshow");
+        if(!currentTvShow.getSeasons().isEmpty()) {
+            if (currentTvShow.getSeasons().get(0).getSeason_number() == 0) {
+                currentTvShow.getSeasons().remove(0);
+            }
+        }
     }
 
 
@@ -97,10 +107,7 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
+        /* If we need to add some action buttons later */
 
         return super.onOptionsItemSelected(item);
     }
@@ -134,7 +141,10 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            if(position==0)
+                return PlaceholderFragment.newInstance(position);
+            else
+                return EpisodeListFragment.newInstance(position,currentTvShow);
         }
 
         @Override
@@ -185,6 +195,17 @@ public class DetailedTvShowActivity extends ActionBarActivity implements ActionB
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_detailed_tv_show, container, false);
+
+            TextView textView = (TextView)rootView.findViewById(R.id.section_label);
+            textView.setText(currentTvShow.getOverview());
+            textView.setMovementMethod(new ScrollingMovementMethod());
+
+            Picasso.with(getActivity())
+                    .load(TVShowManager.IMAGE_URL+currentTvShow.getPoster_url())
+                    .error(R.drawable.tv_icon)
+                    .placeholder(R.drawable.tv_icon)
+                    .into((ImageView) rootView.findViewById(R.id.imageView));
+
             return rootView;
         }
     }

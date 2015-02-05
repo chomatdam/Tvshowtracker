@@ -52,16 +52,18 @@ public class GetTvShowThread extends Thread {
         try {
         int lastSeason = tvShow.getSeasons().size()-1;
         int lastEpisode = tvShow.getSeasons().get(lastSeason).getEpisodes().size()-1;
-        String lastAirDate = tvShow.getSeasons().get(lastSeason).getEpisodes().get(lastEpisode).getAir_date();
+            if(lastSeason>=0 && lastEpisode>=0) {
+                String lastAirDate = tvShow.getSeasons().get(lastSeason).getEpisodes().get(lastEpisode).getAir_date();
 
-        Calendar calendar = Calendar.getInstance();
-        Date currentDate = calendar.getTime();
+                Calendar calendar = Calendar.getInstance();
+                Date currentDate = calendar.getTime();
 
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date date = formatter.parse(lastAirDate);
-        if(date.compareTo(currentDate)>=0) {
-            result = lastAirDate;
-        }
+                SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+                Date date = formatter.parse(lastAirDate);
+                if (date.compareTo(currentDate) >= 0) {
+                    result = "Next episode: " + lastAirDate;
+                }
+            }
         } catch (ParseException e) {
             e.printStackTrace();
         }
