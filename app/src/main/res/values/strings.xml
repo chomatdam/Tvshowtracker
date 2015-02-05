@@ -13,5 +13,6 @@
     <string name="title_activity_detailed_tv_show">Details</string>
     <string name="tab_overview">Overview</string>
     <string name="tab_seasons">Seasons</string>
+    <string name="title_activity_episode">Episodes</string>
 
 </resources>

@@ -21,7 +21,7 @@ public class EpisodeListFragment extends ListFragment{
     private Season season;
     private ListEpisodeAdapter mAdapter ;
 
-    public static EpisodeListFragment newInstance(int sectionNumber, Season season) {
+    public static EpisodeListFragment newInstance(Season season) {
         EpisodeListFragment fragment = new EpisodeListFragment();
         fragment.season = season;
         return fragment;

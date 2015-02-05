@@ -49,7 +49,7 @@ public class ListEpisodeAdapter extends ArrayAdapter<Episode> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.episodeName.setText("Episode "+getItem(position).getName());
+        viewHolder.episodeName.setText("Episode "+String.valueOf(position+1)+": "+getItem(position).getName());
         viewHolder.airDate.setText(getItem(position).getAir_date());
 
 

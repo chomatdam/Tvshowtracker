@@ -8,7 +8,8 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/AppTheme"
+        android:screenOrientation="portrait" >
         <activity
             android:name=".UI.activities.MainActivity"
             android:label="@string/app_name" >
@@ -31,6 +32,14 @@
         <activity
             android:name=".UI.activities.DetailedTvShowActivity"
             android:label="@string/title_activity_detailed_tv_show"
+            android:parentActivityName=".UI.activities.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.eseo.tvshowtracker.UI.activities.MainActivity" />
+        </activity>
+        <activity
+            android:name=".UI.activities.EpisodeActivity"
+            android:label="@string/title_activity_episode"
             android:parentActivityName=".UI.activities.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

@@ -1,6 +1,7 @@
 package com.eseo.tvshowtracker.UI.fragments;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -9,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.eseo.tvshowtracker.R;
+import com.eseo.tvshowtracker.UI.activities.DetailedTvShowActivity;
+import com.eseo.tvshowtracker.UI.activities.EpisodeActivity;
 import com.eseo.tvshowtracker.UI.adapter.ListSeasonAdapter;
 import com.eseo.tvshowtracker.UI.adapter.SearchResultAdapter;
 import com.eseo.tvshowtracker.managers.GetTvShowThread;
@@ -57,6 +60,11 @@ public class SeasonListFragment extends ListFragment{
 
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
-        //TODO: get episodes
+        Intent intent = new Intent(getActivity(), EpisodeActivity.class);
+        Bundle b = new Bundle();
+        Season season = tvshow.getSeasons().get(position);
+        b.putSerializable("season",season);
+        intent.putExtras(b);
+        getActivity().startActivity(intent);
     }
 }
