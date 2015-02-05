@@ -41,7 +41,7 @@ public class ListEpisodeAdapter extends ArrayAdapter<Episode> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.detailedActivity_episode_row, parent, false);
+            convertView = inflater.inflate(R.layout.detailedactivity_episode_row, parent, false);
 
             viewHolder.episodeName = (TextView) convertView.findViewById(R.id.episode_name);
             viewHolder.airDate = (TextView) convertView.findViewById(R.id.next_episode);
