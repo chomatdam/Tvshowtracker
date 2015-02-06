@@ -2,7 +2,6 @@ package com.eseo.tvshowtracker.UI.fragments;
 
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +15,7 @@ import android.widget.Toast;
 
 import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.UI.adapter.SearchResultAdapter;
+import com.eseo.tvshowtracker.UI.listeners.OnNotificationListener;
 import com.eseo.tvshowtracker.managers.GetTvShowThread;
 import com.eseo.tvshowtracker.managers.RESTService;
 import com.eseo.tvshowtracker.managers.SQLiteManager;
@@ -38,7 +38,7 @@ public class PopularShowsFragment extends ListFragment{
     private SearchResultAdapter mAdapter ;
     private SQLiteManager mSqLiteManager;
     private ProgressBar mProgressBar;
-    private NotificationListener listener;
+    private OnNotificationListener listener;
 
 
     @Override
@@ -57,7 +57,7 @@ public class PopularShowsFragment extends ListFragment{
         super.onAttach(activity);
         // This makes sure that the container activity has implemented
         try {
-            listener = (NotificationListener) activity;
+            listener = (OnNotificationListener) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException(activity.toString()
                     + " must implement notifyAdapterListener");
@@ -102,7 +102,7 @@ public class PopularShowsFragment extends ListFragment{
             switch(msg.what){
                 case GetTvShowThread.TV_SHOW_ANSWER:
                     mProgressBar.setVisibility(View.GONE);
-                    listener.updateView();
+                    listener.onNotification();
                     break;
                 default:
                     break;

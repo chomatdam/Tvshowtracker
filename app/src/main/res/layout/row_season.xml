@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    >
+
+    <CheckBox
+        android:id="@+id/season_seen_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="10dp"/>
+
+    <TextView
+        android:id="@+id/season_name_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/season_seen_checkbox"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:lines="1"
+        android:layout_centerVertical="true"
+        android:textStyle="bold"
+        android:textSize="18dp"
+        />
+
+
+    <ProgressBar
+        android:id="@+id/nb_episodes_progressBar"
+        android:layout_width="0dp"
+        android:layout_height="20dp"
+        android:layout_toRightOf="@id/season_name_textView"
+        android:layout_toLeftOf="@+id/nb_episodes_textView"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+
+        style="?android:attr/progressBarStyleHorizontal"
+        android:max="100"/>
+
+    <TextView
+        android:id="@+id/nb_episodes_textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@+id/to_episodes_arrow_imageView"
+        android:layout_marginRight="10dp"
+        android:layout_centerVertical="true"
+        android:textSize="17dp"
+        />
+
+    <ImageView
+        android:id="@+id/to_episodes_arrow_imageView"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arrow_forward"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        />
+
+
+
+</RelativeLayout>

@@ -23,11 +23,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.UI.activities.DetailedTvShowActivity;
-import com.eseo.tvshowtracker.UI.activities.SearchResultsActivity;
 import com.eseo.tvshowtracker.managers.SQLiteManager;
 import com.eseo.tvshowtracker.managers.TVShowManager;
 import com.eseo.tvshowtracker.model.TvShow;
@@ -61,7 +59,7 @@ public class MyShowsFragment extends ListFragment implements LoaderManager.Loade
         getLoaderManager().initLoader(TVSHOW_LIST_LOADER, null, this);
 
         mAdapter = new SimpleCursorAdapter(
-                getActivity().getApplicationContext(), R.layout.my_tv_show_row,
+                getActivity().getApplicationContext(), R.layout.row_my_tv_show,
                 null, from, to, Adapter.IGNORE_ITEM_VIEW_TYPE);
 
 

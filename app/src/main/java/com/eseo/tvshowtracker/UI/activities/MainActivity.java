@@ -13,15 +13,14 @@ import android.view.MenuItem;
 import com.eseo.tvshowtracker.R;
 import com.eseo.tvshowtracker.UI.adapter.MyFragmentPageAdapter;
 import com.eseo.tvshowtracker.UI.fragments.MyShowsFragment;
-import com.eseo.tvshowtracker.UI.fragments.NotificationListener;
 import com.eseo.tvshowtracker.UI.fragments.PopularShowsFragment;
-import com.eseo.tvshowtracker.managers.SQLiteManager;
+import com.eseo.tvshowtracker.UI.listeners.OnNotificationListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainActivity extends ActionBarActivity implements NotificationListener, ActionBar.TabListener {
+public class MainActivity extends ActionBarActivity implements OnNotificationListener, ActionBar.TabListener {
 
     private ViewPager mViewPager ;
     private MyFragmentPageAdapter mAdapter ;
@@ -68,11 +67,10 @@ public class MainActivity extends ActionBarActivity implements NotificationListe
     }
 
     @Override
-    public void updateView() {
+    public void onNotification() {
         myshowsFragment.update();
         mAdapter.notifyDataSetChanged();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

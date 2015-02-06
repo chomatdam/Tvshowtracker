@@ -41,7 +41,7 @@ public class SearchResultAdapter extends ArrayAdapter<TvShow> {
         if (convertView == null) {
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.tv_show_row, parent, false);
+            convertView = inflater.inflate(R.layout.row_search_tv_show, parent, false);
 
             viewHolder.poster = (ImageView) convertView.findViewById(R.id.tvshow_poster_image_view);
             viewHolder.name = (TextView) convertView.findViewById(R.id.tvshow_name_text_view);

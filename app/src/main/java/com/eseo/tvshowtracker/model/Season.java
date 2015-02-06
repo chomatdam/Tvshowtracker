@@ -16,6 +16,23 @@ public class Season implements Serializable {
     private String poster_path ;
     private List<Episode> episodes ;
 
+    public int getNumberSeenEpisodes(){
+        int nbSeenEpisodes = 0 ;
+        for(Episode episode : episodes){
+            if(episode.isSeen() == 1){
+                nbSeenEpisodes++;
+            }
+        }
+        return nbSeenEpisodes ;
+    }
+
+    public void updateSeenEpisodes(int seen){
+        for(int i=0;i<episodes.size();i++){
+            Episode episode = episodes.get(i);
+            episode.setSeen(seen);
+        }
+    }
+
     public long getId_tvshow() {
         return id_tvshow;
     }

@@ -169,6 +169,52 @@ public class SQLiteManager extends SQLiteOpenHelper {
         return episode_id;
     }
 
+    public int updateTvShow(TvShow tvShow) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_POSTER, tvShow.getPoster_url());
+        values.put(COL_NEXT_EPISODE_TVSHOW, tvShow.getNextEpisode());
+        values.put(COL_OVERVIEW_TVSHOW, tvShow.getOverview());
+
+        for(Season season : tvShow.getSeasons()){
+            updateSeason(season);
+        }
+
+       return  db.update(TABLE_TVSHOW,values, COL_PK_ID + " = ?",
+               new String[] { String.valueOf(tvShow.getId())});
+    }
+
+    public int updateSeason(Season season) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_SEASON_NUMBER,season.getSeason_number());
+        values.put(COL_EPISODE_COUNT, season.getEpisode_count());
+        values.put(COL_AIR_DATE, season.getAir_date());
+        values.put(COL_POSTER, season.getPoster_path());
+
+        for(Episode episode : season.getEpisodes()){
+            updateEpisode(episode);
+        }
+
+        return  db.update(TABLE_SEASON,values, COL_PK_ID + " = ?",
+                new String[] { String.valueOf(season.getId())});
+    }
+
+    public int updateEpisode(Episode episode) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COL_EPISODE_SEEN, episode.isSeen());
+        values.put(COL_AIR_DATE, episode.getAir_date());
+
+
+        return  db.update(TABLE_EPISODE,values, COL_PK_ID + " = ?",
+                new String[] { String.valueOf(episode.getId())});
+    }
+
+
 
     public void deleteTvShow(long tvshow_id) {
         SQLiteDatabase db = this.getWritableDatabase();

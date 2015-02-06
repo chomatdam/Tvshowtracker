@@ -6,11 +6,9 @@ import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.eseo.tvshowtracker.R;
-import com.eseo.tvshowtracker.UI.adapter.ListEpisodeAdapter;
-import com.eseo.tvshowtracker.UI.adapter.ListSeasonAdapter;
+import com.eseo.tvshowtracker.UI.adapter.EpisodeListAdapter;
 import com.eseo.tvshowtracker.model.Season;
 
 /**
@@ -19,7 +17,7 @@ import com.eseo.tvshowtracker.model.Season;
 public class EpisodeListFragment extends ListFragment{
 
     private Season season;
-    private ListEpisodeAdapter mAdapter ;
+    private EpisodeListAdapter mAdapter ;
 
     public static EpisodeListFragment newInstance(Season season) {
         EpisodeListFragment fragment = new EpisodeListFragment();
@@ -33,18 +31,13 @@ public class EpisodeListFragment extends ListFragment{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = new ListEpisodeAdapter(getActivity(),season);
+        mAdapter = new EpisodeListAdapter(getActivity(),season);
         setListAdapter(mAdapter);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_detailed_episodes_tvshow,container,false);
+        View view = inflater.inflate(R.layout.fragment_episode_list,container,false);
         return view ;
-    }
-
-    @Override
-    public void onListItemClick(ListView l, View v, int position, long id) {
-        //TODO: context menu of this episode
     }
 }
