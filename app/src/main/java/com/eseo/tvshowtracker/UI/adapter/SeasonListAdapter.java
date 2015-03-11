@@ -36,7 +36,7 @@ public class SeasonListAdapter extends BaseAdapter {
 
         this.mData.add(new String("Seasons"));
         this.mData.addAll(tvShow.getSeasons());
-        this.mData.add(new String("Overviews"));
+        this.mData.add(new String("Overview"));
         this.mData.add(tvShow.getOverview());
         this.nbSeasons = tvShow.getSeasons().size();
         this.context = context ;
