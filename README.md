@@ -1,5 +1,7 @@
 # Tv show tracker
 
+<img src="https://cloud.githubusercontent.com/assets/8525860/9429548/38307888-49d4-11e5-8136-e8f9693d9cbd.png" width="300">
+
 ###### Things to do:
 - Refresh button in the context menu
 - Refresh button in the action bar (update all series)
